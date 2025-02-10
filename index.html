@@ -10,18 +10,40 @@
             </div>
             <div class="right">
                 <div class="anchor">
-                    <a href="#home" class="active" title="Home"><i class="fa-sharp fa-solid fa-house"></i></a>
-                    <a href="#View" title="View"><i class="fa-solid fa-eye"></i></a>
-                    <a href="#SetRemainder" title="SetRemainder"><i class="fa-solid fa-clock"></i></a>
-                    <a href="#Priority" title="Priority"><i class="fa-solid fa-star"></i></a>
+                    <a href="#home" class="tab-link active" title="Home" onclick="showTab('home')"><i class="fa-sharp fa-solid fa-house"></i></a>
+                    <a href="#View" title="View" class="tab-link" onclick="showTab('view')"><i class="fa-solid fa-eye"></i></a>
+                    <a href="#SetRemainder" class="tab-link" title="SetRemainder" onclick="showTab('setremainder')"><i class="fa-solid fa-clock"></i></a>
+                    <a href="#Priority" class="tab-link" title="Priority" onclick="showTab('priority')"><i class="fa-solid fa-star"></i></a>
                 </div>
-                <button for="user" onclick="user();"><i class="fa-solid fa-user"></i></button>
-                <br><br><br>
-                <input type="text" placeholder="Add Task.." size="50" id="task">
-                <input type="submit" value="ADD" onclick="add();" id="add">
+                <div id="home" class="tab-content active">
+                    <button for="user" onclick="user();"><i class="fa-solid fa-user"></i></button>
+                    <br><br><br>
+                    <input type="text" placeholder="Add Task.." size="50" id="task">
+                    <input type="submit" value="ADD" onclick="add();" id="add">
+                </div>
+                <div id="view" class="tab-content">
+                    hii
+                </div>
             </div>
         </div>
-        
+        <script>
+            function showTab(tabName) {
+                // Hide all tab content
+                const allTabs = document.querySelectorAll('.tab-content');
+                allTabs.forEach(tab => tab.classList.remove('active'));
+
+                // Remove active class from all tab links
+                const allLinks = document.querySelectorAll('.tab-link');
+                allLinks.forEach(link => link.classList.remove('active'));
+
+                // Show the selected tab content
+                document.getElementById(tabName).classList.add('active');
+                
+                // Set the active class to the clicked link
+                const activeLink = document.querySelector(`[href='#${tabName}']`);
+                activeLink.classList.add('active');
+            }
+        </script
     </body>
     
 </html>
