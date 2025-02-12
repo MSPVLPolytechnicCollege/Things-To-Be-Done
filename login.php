@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         if (empty($loginEmailError) && empty($loginPasswordError)) {
-            // Validate user credentials
+            // Validate user credentials without password hashing
             $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
@@ -48,10 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $stmt->bind_result($storedPassword);
                 $stmt->fetch();
 
-                // Use password_verify to check the hashed password
-                if (password_verify($password, $storedPassword)) {
+                // Direct password comparison (no hashing)
+                if ($password === $storedPassword) {
                     $_SESSION['user'] = $email;  // Store user session
-                    header("Location: home.php");  // Redirect to homepage after successful login
+                    header("Location: index.php");  // Redirect to homepage after successful login
                     exit();
                 } else {
                     $loginPasswordError = "Incorrect password.";
@@ -97,15 +97,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($stmt->num_rows > 0) {
                 $signupEmailError = "Email already exists.";
             } else {
-                // Hash the password before storing it
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-                // Insert new user into database with hashed password
+                // Insert new user into database with plain text password
                 $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-                $stmt->bind_param("ss", $email, $hashedPassword);
+                $stmt->bind_param("ss", $email, $password);
 
                 if ($stmt->execute()) {
                     $registrationSuccess = true;  // Registration successful
+                    header("Location: index.php");  // Redirect to login page after successful signup
+                    exit();  // Ensure no further processing happens
                 } else {
                     $signupEmailError = "Error creating account. Please try again.";
                 }
@@ -277,4 +276,4 @@ $conn->close();
         }
     </script>
 </body>
-</html>
+</html
