@@ -79,15 +79,18 @@ $conn->close();
                 margin-left: 400px;
             }
             #task {
-                font-size: 30px;
+                font-size: 20px;
                 font-family: 'Times New Roman', Times, serif;
+                width: 700px;
             }
             #add {
-                font-size: 30px;
+                font-size: 20px;
                 font-family: 'Times New Roman', Times, serif;
                 background-color: deepskyblue;
                 color: black;
                 cursor: pointer;
+                width: 80px;
+                height:80px;
             }
             #add:hover {
                 opacity: 40%;
@@ -137,7 +140,9 @@ $conn->close();
                 font-size: 14px;
                 margin-top: 10px;
             }
+            
         </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body>
         <div class="container">
@@ -153,7 +158,7 @@ $conn->close();
                 </div>
                 <div id="home" class="tab-content active">
                     <br><br><br>
-                    <form method="POST" action="add_task.php">
+                    <form method="POST" action="index.php">
                         <input type="text" placeholder="Add Task.." size="50" id="task" name="task">
                         <button type="button" id="add" onclick="addTask()">ADD</button>
                         <!-- Date and Time Inputs -->
@@ -166,7 +171,13 @@ $conn->close();
                     <div class="error" id="dateTimeError"></div>
                 </div>
                 <div id="view" class="tab-content">
-                    hii
+                    view
+                </div>
+                <div id="setremainder" class="tab-content">
+                    setremainder
+                </div>
+                <div id="priority" class="tab-content">
+                    priority
                 </div>
             </div>
         </div>
@@ -205,5 +216,3 @@ $conn->close();
         </script>
     </body>
 </html>
-
-
