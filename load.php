@@ -34,6 +34,7 @@ $result = $conn->query($sql);
 <html lang="en">
 <head>
     <title>To-Do List</title>
+    <link rel="stylesheet" href="menu.css">
     <style>
         /* Import Google Font */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
@@ -52,6 +53,7 @@ $result = $conn->query($sql);
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
         /* Container */
@@ -195,7 +197,13 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
+<div id="mySidenav" class="sidenav">
+    <a href="home.php" title=" Home" id="home" class="cta-button">         Home   <i class="fa-solid fa-house"></i></a>
+    <a href="add _task.php" class="cta-button" title=" Add Task"  id="addtask">    Add Task     <i class="fa-solid fa-circle-plus"></i></a>
+    <a href="load.php" class="cta-button" title=" Remainder Details" id="remainder">         View Task <i class="fa-solid fa-calendar-week"></i> </a>
+    <a href="contact.php" class="cta-button" title="Contact" id="contact">         Contact       <i class="fa-solid fa-mobile-retro"></i></a>
+     
+  </div> 
 <div class="container">
         <div class="sidebar">
             <h2>📋 To-Do</h2>
@@ -204,13 +212,6 @@ $result = $conn->query($sql);
                 <li class="tab-link" data-filter="all">📋 All Tasks</li>
                 <li class="tab-link" data-filter="completed">✅ Completed Tasks</li>
             </ul>
-            <div class="notification-toggle">
-    <label>
-        <input type="checkbox" id="notificationToggle" checked>
-        Enable Notifications
-    </label>
-</div>
-
         </div>
 
         <div class="main-content">
@@ -230,7 +231,6 @@ if ($result->num_rows > 0) {
             <span class="task-time"><?= date('Y-m-d H:i A', strtotime($row['datetime'])) ?></span>
             <div class="task-icons">
                 <i class="fas fa-bell notify" title="<?= htmlspecialchars($row['notification']) ?>"></i>
-                <span class="notify_time" hidden><?= date('Y-m-d H:i A', strtotime($row['notification'])) ?></span>
                 <i class="fas fa-edit edit" data-id="<?= $row['task_id'] ?>"></i>
                 <i class="fas fa-trash delete" data-id="<?= $row['task_id'] ?>"></i>
                 <input type="checkbox" class="task-check" data-id="<?= $row['task_id'] ?>">
@@ -299,62 +299,6 @@ if ($result->num_rows > 0) {
         window.onload = function() {
         document.querySelector('.tab-link[data-filter="today"]').click();
     };
-
-    let notificationEnabled = localStorage.getItem("notifications") !== "off"; // Store user preference
-
-    document.getElementById("notificationToggle").addEventListener("change", function() {
-        notificationEnabled = this.checked;
-        localStorage.setItem("notifications", this.checked ? "on" : "off");
-    });
-
-    // Load saved setting
-    document.getElementById("notificationToggle").checked = notificationEnabled;
-
-    function checkNotifications() {
-    if (!notificationEnabled) return;
-
-    let now = new Date();
-    let formattedNow = now.getFullYear() + "-" +
-        ("0" + (now.getMonth() + 1)).slice(-2) + "-" +
-        ("0" + now.getDate()).slice(-2) + " " +
-        ("0" + now.getHours()).slice(-2) + ":" +
-        ("0" + now.getMinutes()).slice(-2);
-
-    console.log("Checking for notifications at:", formattedNow); // Debugging
-
-    document.querySelectorAll(".task").forEach(task => {
-        let taskTime = task.querySelector(".notify_time").innerText.trim().slice(0, 16); // Ensure format matches
-
-        console.log("Task Time:", taskTime); // Debugging
-
-        if (taskTime === formattedNow && !task.dataset.notified) {
-            task.dataset.notified = "true"; // Mark as notified
-            let message = task.querySelector(".task-name").innerText;
-            playNotification(message);
-        }
-    });
-}
-
-function playNotification(message) {
-    let audio = new Audio("notification.mp3");
-    audio.play();
-
-    // Show a browser notification
-    if (Notification.permission === "granted") {
-        new Notification("Task Reminder", { body: message });
-    } else {
-        alert("⏰ Task Due: " + message);
-    }
-}
-
-// Request Notification Permission
-if (Notification.permission !== "granted") {
-    Notification.requestPermission();
-}
-
-// Run check every 10 seconds for testing (Change to 60000 for 1 min in production)
-setInterval(checkNotifications, 10000);
-
     </script>
 
 </body>
