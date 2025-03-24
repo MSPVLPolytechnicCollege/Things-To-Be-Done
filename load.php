@@ -204,6 +204,13 @@ $result = $conn->query($sql);
                 <li class="tab-link" data-filter="all">📋 All Tasks</li>
                 <li class="tab-link" data-filter="completed">✅ Completed Tasks</li>
             </ul>
+            <div class="notification-toggle">
+    <label>
+        <input type="checkbox" id="notificationToggle" checked>
+        Enable Notifications
+    </label>
+</div>
+
         </div>
 
         <div class="main-content">
@@ -223,6 +230,7 @@ if ($result->num_rows > 0) {
             <span class="task-time"><?= date('Y-m-d H:i A', strtotime($row['datetime'])) ?></span>
             <div class="task-icons">
                 <i class="fas fa-bell notify" title="<?= htmlspecialchars($row['notification']) ?>"></i>
+                <span class="notify_time" hidden><?= date('Y-m-d H:i A', strtotime($row['notification'])) ?></span>
                 <i class="fas fa-edit edit" data-id="<?= $row['task_id'] ?>"></i>
                 <i class="fas fa-trash delete" data-id="<?= $row['task_id'] ?>"></i>
                 <input type="checkbox" class="task-check" data-id="<?= $row['task_id'] ?>">
@@ -291,6 +299,62 @@ if ($result->num_rows > 0) {
         window.onload = function() {
         document.querySelector('.tab-link[data-filter="today"]').click();
     };
+
+    let notificationEnabled = localStorage.getItem("notifications") !== "off"; // Store user preference
+
+    document.getElementById("notificationToggle").addEventListener("change", function() {
+        notificationEnabled = this.checked;
+        localStorage.setItem("notifications", this.checked ? "on" : "off");
+    });
+
+    // Load saved setting
+    document.getElementById("notificationToggle").checked = notificationEnabled;
+
+    function checkNotifications() {
+    if (!notificationEnabled) return;
+
+    let now = new Date();
+    let formattedNow = now.getFullYear() + "-" +
+        ("0" + (now.getMonth() + 1)).slice(-2) + "-" +
+        ("0" + now.getDate()).slice(-2) + " " +
+        ("0" + now.getHours()).slice(-2) + ":" +
+        ("0" + now.getMinutes()).slice(-2);
+
+    console.log("Checking for notifications at:", formattedNow); // Debugging
+
+    document.querySelectorAll(".task").forEach(task => {
+        let taskTime = task.querySelector(".notify_time").innerText.trim().slice(0, 16); // Ensure format matches
+
+        console.log("Task Time:", taskTime); // Debugging
+
+        if (taskTime === formattedNow && !task.dataset.notified) {
+            task.dataset.notified = "true"; // Mark as notified
+            let message = task.querySelector(".task-name").innerText;
+            playNotification(message);
+        }
+    });
+}
+
+function playNotification(message) {
+    let audio = new Audio("notification.mp3");
+    audio.play();
+
+    // Show a browser notification
+    if (Notification.permission === "granted") {
+        new Notification("Task Reminder", { body: message });
+    } else {
+        alert("⏰ Task Due: " + message);
+    }
+}
+
+// Request Notification Permission
+if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+}
+
+// Run check every 10 seconds for testing (Change to 60000 for 1 min in production)
+setInterval(checkNotifications, 10000);
+
     </script>
 
 </body>
