@@ -19,9 +19,9 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            margin: 50px;
             background: url('download.gif') no-repeat center center fixed;
             background-size: cover;
+            margin: 0;
         }
         .container {
             width: 50%;
@@ -184,10 +184,9 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
 
 <div id="mySidenav" class="sidenav">
     <a href="home.php" title=" Home" id="home" class="cta-button">         Home   <i class="fa-solid fa-house"></i></a>
-    <a href="add _task.html" class="cta-button" title=" Add Task"  id="addtask">    Add Task     <i class="fa-solid fa-circle-plus"></i></a>
+    <a href="add _task.php" class="cta-button" title=" Add Task"  id="addtask">    Add Task     <i class="fa-solid fa-circle-plus"></i></a>
     <a href="load.php" class="cta-button" title=" Remainder Details" id="remainder">         View Task <i class="fa-solid fa-calendar-week"></i> </a>
-    <a href="contact.html" class="cta-button" title="Contact" id="contact">         Contact       <i class="fa-solid fa-mobile-retro"></i></a>
-    <a href="logout.html" class="cta-button" title="Log Out" id="logout">         Log Out      <i class="fa-solid fa-person-through-window"></i></a>
+    <a href="contact.php" class="cta-button" title="Contact" id="contact">         Contact       <i class="fa-solid fa-mobile-retro"></i></a>
      
   </div> 
   <div class="container">
