@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query ="INSERT INTO feedback (login_name,name,email,message) VALUES ('$userEmail', '$name', '$email', '$message')";
 
     if (mysqli_query($conn, $query)) {
-        echo "<script>alert('feedback submitted successfully'); window.location.href='contact.php';</script>";
+        echo "<script>alert('feedback submitted successfully'); window.location.href='contact.html';</script>";
     } else {
         echo "Error: " . mysqli_error($conn);
     }
