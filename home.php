@@ -196,7 +196,7 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
   <a href="home.php" title=" Home" id="home" class="cta-button">         Home   <i class="fa-solid fa-house"></i></a>
   <a href="add _task.php" class="cta-button" title=" Add Task"  id="addtask">    Add Task     <i class="fa-solid fa-circle-plus"></i></a>
   <a href="load.php" class="cta-button" title=" Remainder Details" id="remainder">         View Task <i class="fa-solid fa-calendar-week"></i> </a>
-  <a href="contact.php" class="cta-button" title="Contact" id="contact">         Contact       <i class="fa-solid fa-mobile-retro"></i></a>
+  <a href="contact.html" class="cta-button" title="Contact" id="contact">         Contact       <i class="fa-solid fa-mobile-retro"></i></a>
 </div> 
     <div class="main-content" id="main">
        <body background="background.jpg" width="100%" height="100%"  text="white">
