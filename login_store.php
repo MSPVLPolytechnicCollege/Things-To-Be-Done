@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+date_default_timezone_set('Asia/Kolkata'); // Change to your region
 $activeForm = "login"; 
 $loginEmailError = $loginPasswordError = "";
 $signupEmailError = $signupPasswordError = $confirmPasswordError = "";
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = trim($_POST["signupEmail"]);
         $password = trim($_POST["signupPassword"]);
         $confirmPassword = trim($_POST["confirmPassword"]);
-
+        $created_time=date("Y-m-d H:i:s");
         if (empty($email)) {
             $signupEmailError = "Username is required.";
         }
@@ -91,10 +92,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $signupEmailError = "Username already exists.";
             } else {
                 
-                $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-                $stmt->bind_param("ss", $email, $password);
+                $query = "INSERT INTO users (email, password, created) 
+              VALUES ('$email', '$password', '$created_time')";
 
-                if ($stmt->execute()) {
+            if (mysqli_query($conn, $query)) {
                     $registrationSuccess = true;  
                     header("Location: home.php");  
 
