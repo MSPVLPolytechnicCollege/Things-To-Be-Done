@@ -49,11 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     header("Location: home.php");  
                     exit();
                 } else {
-                    $loginPasswordError = "Incorrect password.";
+                    $loginError = "Incorrect password.";
                 }
             } else {
-                $loginEmailError = "No account found with this email.";
+                $loginError = "No account found with this Username.";
             }
+            echo "<script>alert('$loginError'); window.location.href='main.html';</script>";
             $stmt->close();
         }
         $activeForm = "login";
@@ -68,13 +69,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $signupEmailError = "Username is required.";
         }
         if (empty($password)) {
-            $signupPasswordError = "Password is required.";
+            echo "<script>alert('Password is Required'); window.location.href='main.html';</script>";
+            exit();
         } elseif (strlen($password) < 6) {
-            $signupPasswordError = "Password must be at least 6 characters.";
+            echo "<script>alert('Password atleast must be 6 characters.'); window.location.href='main.html';</script>";
+            exit();
         }
 
         if ($password !== $confirmPassword) {
-            $confirmPasswordError = "Passwords do not match.";
+            echo "<script>alert('Confirm Password Does not match'); window.location.href='main.html';</script>";
+            exit();
         }
         if($email==="admin" && $password==="mspvlce1052" && $confirmPassword==="mspvlce1052"){
             header("Location:admin.php");
@@ -89,7 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-                $signupEmailError = "Username already exists.";
+                echo "<script>alert('Username Already exists.'); window.location.href='main.html';</script>";
+                exit();
             } else {
                 
                 $query = "INSERT INTO users (email, password, created) 
@@ -115,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     exit();  
                 } else {
-                    $signupEmailError = "Error creating account. Please try again.";
+                    echo "<script>alert('Error Creating Account Please try again.'); window.location.href='main.html';</script>";
                 }
                 $stmt->close();
             }
