@@ -15,6 +15,7 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
 <head>
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title> Homepage</title>
+    <link rel="stylesheet" href="menu.css">
     <style>
        
         body {
@@ -92,49 +93,6 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
             text-align: center;
             padding: 10px 0;
         }
-#mySidenav a {
-  position: absolute;
-  left: -80px;
-  transition: 0.3s;
-  padding: 15px;
-  width: 110px;
-  text-decoration: none;
-  font-size: 20px;
-  color: white;
-  border-radius: 0 15px 15px 0;
-}
-
-#mySidenav a:hover {
-  left: 0;
-}
-
-#home {
-  top: 20px;
-  background-color: #04AA6D;
-}
-
-#addtask {
-  top: 100px;
-  background-color: #2196F3;
-}
-
-#remainder {
-  top: 180px;
-  background-color: #f44336;
-}
-
-#contact {
-  top: 280px;
-  background-color: #555
-}
-
-#logout {
-  top: 360px;
-  background-color: #555
-}
-.sidenav{
-  position: fixed;
-}
 
 .user-actions {
     position: absolute;
