@@ -192,6 +192,12 @@ $result = $conn->query($sql);
         .task.active {
             display: flex;
         }
+
+        .task-name.expired {
+    text-decoration: line-through;
+    color: gray;
+}
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -210,6 +216,7 @@ $result = $conn->query($sql);
                 <li class="active tab-link" data-filter="today">📌 Today's Tasks</li>
                 <li class="tab-link" data-filter="all">📋 All Tasks</li>
                 <li class="tab-link" data-filter="completed">✅ Completed Tasks</li>
+                <li class="tab-link" data-filter="pending">❌ Pending Tasks</li>
             </ul>
             <div class="notification-toggle">
     <label>
@@ -264,12 +271,45 @@ if ($result->num_rows > 0) {
 
                 document.querySelectorAll(".task").forEach(task => {
                     if (filter === "all") {
-                        task.style.display = "flex";
-                    } else if (filter === "completed") {
-                        task.style.display = task.querySelector(".task-check").checked ? "flex" : "none";
-                    } else if (filter === "today") {
-                        task.style.display = task.classList.contains("today") ? "flex" : "none";
-                    }
+    task.style.display = "flex";
+} else if (filter === "completed") {
+    task.style.display = task.querySelector(".task-check").checked ? "flex" : "none";
+} else if (filter === "today") {
+    task.style.display = task.classList.contains("today") ? "flex" : "none";
+} else if (filter === "pending") {
+    const timeText = task.querySelector(".task-time").innerText;
+    const taskDateTime = new Date(timeText);
+    const now = new Date();
+
+    if (taskDateTime < now) {
+        task.style.display = "flex";
+
+        // Strike through the task name
+        const taskName = task.querySelector(".task-name");
+        taskName.style.textDecoration = "line-through";
+        taskName.style.color = "gray";
+
+        // Update time to current system time
+        const nowTime = now.toLocaleString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        task.querySelector(".task-time").innerText = "Expired at: " + nowTime;
+
+        // Disable all except delete
+        const editIcon = task.querySelector(".edit");
+        const notifyIcon = task.querySelector(".notify");
+        const checkbox = task.querySelector(".task-check");
+
+        if (editIcon) editIcon.style.pointerEvents = "none";
+        if (notifyIcon) notifyIcon.style.pointerEvents = "none";
+        if (checkbox) {
+            checkbox.disabled = true;
+            checkbox.style.cursor = "not-allowed";
+        }
+
+    } else {
+        task.style.display = "none";
+    }
+}
+
                 });
             });
         });
