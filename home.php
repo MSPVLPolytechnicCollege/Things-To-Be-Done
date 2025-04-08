@@ -26,8 +26,6 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
             color: white;
              height: 100vh;
             margin: 0;
-        }
-          body {
             background-image: url('back.jpg'); 
             background-size: cover;  
             background-position: center; 
@@ -127,7 +125,9 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
     background-color: #d32f2f;
 }
 
-
+    pre{
+        font-size:18px;
+    }
 
     </style>
 </head>
@@ -158,8 +158,15 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
 </div> 
     <div class="main-content" id="main">
        <body background="background.jpg" width="100%" height="100%"  text="white">
-        <h1>Your Solution for Everything</h1>
-        <p>We provide top-quality products and services that make your life easier and more enjoyable. Our team is dedicated to delivering the best experience possible.</p>
+        <h1>our Solution for Everything</h1>
+        <p><pre>Setting goals is the first step in turning the invisible into the visible.
+💨User authentication 
+💨Task storage
+💨Task prioritization
+💨Time notification
+💨Avoid web page complexity
+💨Feedback by user</pre>
+        </p>
         <a href="add _task.php" class="cta-button">Get Started</a>
     </div>
 
