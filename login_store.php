@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if (mysqli_query($conn, $query)) {
                     $registrationSuccess = true;  
-                    header("Location: home.php");  
+                    header("Location: main.html");  
 
   
     $sql = "CREATE TABLE `$email` (
