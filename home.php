@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: main.html"); // Redirect to login if not logged in
+    header("Location: main.html"); 
     exit();
 }
-$userEmail = $_SESSION['user']; // Get logged-in user email
+$userEmail = $_SESSION['user']; 
 ?>
 
 
@@ -53,7 +53,7 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
             border-radius: 5px;
         }
 
-        /* Main Content */
+        
         .main-content {
             text-align: center;
             padding: 40px 20px;
@@ -85,7 +85,7 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
         }
 
         footer {
-	margin-bottom:0%;
+	        margin-bottom:0%;
             background-color: #333;
             color: white;
             text-align: center;
@@ -94,12 +94,12 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
 
 .user-actions {
     position: absolute;
-    top: 60px; /* Adjusted to be below the nav */
+    top: 60px; 
     right: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 10px; /* Space between elements */
+    gap: 10px; 
 }
 
 .user-info {
@@ -125,21 +125,13 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
     background-color: #d32f2f;
 }
 
-    pre{
-        font-size:18px;
-    }
-
     </style>
 </head>
 <body>
  
-
-    <!-- Navigation Menu -->
     <nav>
-       
-        <a href=".html" target="frame2">Features</a>
-        
-        <a href="C:\Users\student\Desktop\contact\main.html" target="frame2">Contact</a>
+        <a href="features.html">Features</a>
+        <a href="contact.html" >Contact</a>
     </nav>
 
     <div class="user-actions">
@@ -158,19 +150,21 @@ $userEmail = $_SESSION['user']; // Get logged-in user email
 </div> 
     <div class="main-content" id="main">
        <body background="background.jpg" width="100%" height="100%"  text="white">
-        <h1>our Solution for Everything</h1>
-        <p><pre>Setting goals is the first step in turning the invisible into the visible.
-💨User authentication 
-💨Task storage
-💨Task prioritization
-💨Time notification
-💨Avoid web page complexity
-💨Feedback by user</pre>
-        </p>
+        <h1>Our Solution for Everything</h1>
+        <p>Setting goals is the first step in turning the invisible into the visible.</p>
+<ul style="list-style: none; padding: 0; font-size: 18px; line-height: 2; text-align: center;">
+    <li>💨 User Authentication</li>
+    <li>💨 Task Storage</li>
+    <li>💨 Task Prioritization</li>
+    <li>💨 Time Notification</li>
+    <li>💨 Avoid Web Page Complexity</li>
+    <li>💨 Feedback by User</li>
+</ul>
+
+
         <a href="add _task.php" class="cta-button">Get Started</a>
     </div>
 
-    <!-- Footer Section -->
     <footer >
         <p>&copy; 2025 Your Company. All Rights Reserved.</p>
     </footer>
